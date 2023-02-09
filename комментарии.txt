@@ -1,0 +1,2 @@
+    // const commentsSet = new Set(this.#film.comments);
+    // return this.#comments.filter((comment) => commentsSet.has(comment.id));

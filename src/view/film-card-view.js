@@ -27,14 +27,14 @@ function createCardTemplate(film) {
   return (
     `<article class="film-card">
       <a class="film-card__link">
-        <h3 class="film-card__title">${he.encode(title)}</h3>
+        <h3 class="film-card__title">${title}</h3>
         <p class="film-card__rating">${totalRating}</p>
         <p class="film-card__info">
-          <span class="film-card__year">${he.encode(getFilmYear(release.date))}</span>
-          <span class="film-card__duration">${he.encode(getDuration(duration))}</span>
-          <span class="film-card__genre">${he.encode(genre.join(', '))}</span>
+          <span class="film-card__year">${getFilmYear(release.date)}</span>
+          <span class="film-card__duration">${getDuration(duration)}</span>
+          <span class="film-card__genre">${genre.join(', ')}</span>
         </p>
-        <img src="${he.encode(poster)}" alt="" class="film-card__poster">
+        <img src="${poster}" alt="" class="film-card__poster">
         <p class="film-card__description">
           ${description.length > TEXT_LIMIT ? `${he.encode(description.slice(0, TEXT_LIMIT))}...` : description}
         </p>
@@ -85,8 +85,9 @@ export default class FilmCardView extends AbstractView {
     this.element.querySelector('.film-card__link')
       .addEventListener('click', this.#handleOpenClick);
 
-    this.element.querySelector('.film-card__controls')
-      .addEventListener('click', this.#controlsClickHandler);
+    this.element.querySelectorAll('.film-card__controls-item').forEach((element) => {
+      element.addEventListener('click', this.#controlsClickHandler);
+    });
   }
 
   get template() {

@@ -29,6 +29,9 @@ export default class CommentsModel extends Observable {
         scroll: scroll
       };
 
+      const newComments = this.#comments.map(({id}) => id);
+      update.film.comments = newComments;
+
       this._notify(updateType, update);
 
     } catch (err) {
@@ -45,6 +48,9 @@ export default class CommentsModel extends Observable {
     try {
       await this.#commentsApiService.deleteComment(update.id);
       this.#comments = this.#comments.filter((comment) => comment.id !== update.id);
+
+      const newComments = this.#comments.map(({id}) => id);
+      update.film.comments = newComments;
 
       this._notify(updateType, update);
     } catch (err) {

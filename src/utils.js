@@ -19,8 +19,6 @@ function getCommentDate(date) {
 
 const getDuration = (duration) => `${Math.round(duration / 60)}h ${duration % 60}m`;
 
-const updateItem = (items, update) => items.map((item) => item.id === update.id ? update : item);
-
 const getItemById = (items, itemId) => items.find((item) => item.id === itemId);
 
 function getWeightForNullDate(dateA, dateB) {
@@ -105,7 +103,6 @@ export {
   getFilmYear,
   getCommentDate,
   getDuration,
-  updateItem,
   getItemById,
   sortByReleaseDate,
   isCtrlEnterEvent,

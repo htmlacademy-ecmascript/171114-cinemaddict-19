@@ -3,8 +3,8 @@ import AbstractView from '../framework/view/abstract-view.js';
 const TitleByFilter = {
   all: 'There are no movies in our database',
   watchlist: 'There are no movies to watch now',
-  watched: 'There are no watched movies now',
-  favorite: 'There are no favorite movies now'
+  history: 'There are no watched movies now',
+  favorites: 'There are no favorite movies now'
 };
 
 

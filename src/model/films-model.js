@@ -1,6 +1,6 @@
 import Observable from '../framework/observable.js';
 import {UpdateType} from '../const.js';
-import { adaptToClient } from '../utils.js';
+import { adaptToClient, getItemById } from '../utils.js';
 
 export default class FilmsModel extends Observable {
   #filmsApiService = null;
@@ -33,6 +33,8 @@ export default class FilmsModel extends Observable {
     }
 
     try {
+      const filmToUpdate = getItemById(this.#films, film.id);
+      filmToUpdate.userDetails = film.userDetails;
       const response = await this.#filmsApiService.updateFilm(film);
       const updatedFilm = adaptToClient(response);
 

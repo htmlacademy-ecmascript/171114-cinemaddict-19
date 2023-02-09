@@ -1,5 +1,5 @@
 import {render, remove} from '../framework/render.js';
-import ShowMoreView from '../view/showmore-view.js';
+import ShowMoreView from '../view/show-more-view.js';
 
 export default class ShowMorePresenter {
   #filmContainer = null;

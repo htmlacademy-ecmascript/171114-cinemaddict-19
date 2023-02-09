@@ -39,14 +39,14 @@ export default class ListFiltersView extends AbstractView {
     this.#currentFilter = currentFilterType;
     this.#handleFilterTypeChange = onFilterTypeChange;
 
-    this.element.addEventListener('click', this.#filterTypeChangeHandler);
+    this.element.addEventListener('click', this.#onFilterTypeChange);
   }
 
   get template() {
     return createFiltersTemplate(this.#filters, this.#currentFilter);
   }
 
-  #filterTypeChangeHandler = (evt) => {
+  #onFilterTypeChange = (evt) => {
     evt.preventDefault();
 
     const newFilter = evt.target.closest('a').dataset.filter;

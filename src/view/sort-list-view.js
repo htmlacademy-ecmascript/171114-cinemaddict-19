@@ -16,24 +16,24 @@ export default class SortListView extends AbstractView {
     super();
     this.#handleSortTypeChange = onSortTypeChange;
 
-    this.element.querySelectorAll('.sort__button').forEach((button) => button.addEventListener('click', this.#sortTypeChangeHandler));
+    this.element.querySelectorAll('.sort__button').forEach((button) => button.addEventListener('click', this.#onSortTypeChange));
   }
 
   get template() {
     return createSortListTemplate();
   }
 
-  #sortTypeChangeHandler = (evt) => {
+  #onSortTypeChange = (evt) => {
     evt.preventDefault();
     this.#handleSortTypeChange(evt.target.dataset.sortType);
-    this.#setButtonActive(evt.target.dataset.sortType);
+    this.setButtonActive(evt.target.dataset.sortType);
   };
 
   reset() {
-    this.#setButtonActive(SortType.DEFAULT);
+    this.setButtonActive(SortType.DEFAULT);
   }
 
-  #setButtonActive = (sortType) => {
+  setButtonActive = (sortType) => {
     this.element.querySelectorAll('.sort__button')
       .forEach((button) => {
         if(button.dataset.sortType === sortType) {
