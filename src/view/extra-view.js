@@ -20,11 +20,7 @@ export default class ExtraView extends AbstractView {
     return createExtraTemplate(this.#title);
   }
 
-  setMostCommented() {
-    this.element.querySelector('.films-list__container').classList.add('most_commented');
-  }
-
-  setTopRated() {
-    this.element.querySelector('.films-list__container').classList.add('top_rated');
+  getFilmList() {
+    return this.element.querySelector('.films-list__container');
   }
 }

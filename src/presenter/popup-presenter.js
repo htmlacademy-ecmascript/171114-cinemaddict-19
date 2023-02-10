@@ -128,6 +128,7 @@ export default class PopupPresenter {
       evt.preventDefault();
       if(this.#filmPopupComponent.getFormData() === null) {
         this.setAborting(UserAction.ADD_COMMENT);
+        return;
       }
       this.#handleDataChange(UserAction.ADD_COMMENT, UpdateType.PATCH, {
         comment: this.#filmPopupComponent.getFormData(),
@@ -138,7 +139,11 @@ export default class PopupPresenter {
   };
 
   #handleDeleteClick = (payload) => {
-    this.#handleDataChange(UserAction.DELETE_COMMENT, UpdateType.PATCH, payload);
+    if(this.#commentsModel.comments.filter((comment) => comment.id !== payload.id)) {
+      this.#handleDataChange(UserAction.DELETE_COMMENT, UpdateType.PATCH, payload);
+      return;
+    }
+    this.setAborting(UserAction.DELETE_COMMENT, payload.id);
   };
 
   #handleControlsClick = (

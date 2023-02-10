@@ -57,7 +57,6 @@ const AUTHORIZATION = 'Basic er883jdzbdw';
 const END_POINT = 'https://19.ecmascript.pages.academy/cinemaddict';
 const SHAKE_ANIMATION_TIMEOUT = 600;
 const SHAKE_CLASS_NAME = 'shake';
-const TIMEOUT_DELAY = 10;
 
 export {
   SortType,
@@ -72,6 +71,5 @@ export {
   AUTHORIZATION,
   END_POINT,
   SHAKE_ANIMATION_TIMEOUT,
-  SHAKE_CLASS_NAME,
-  TIMEOUT_DELAY
+  SHAKE_CLASS_NAME
 };

@@ -7,7 +7,7 @@ import FilmListView from '../view/film-list-view.js';
 import ShowMorePresenter from './show-more-presenter.js';
 import ExtraPresenter from './extra-presenter.js';
 import EmptyView from '../view/empty-view.js';
-import NoFilmsErrorView from '../view/no-films-view.js';
+import NoFilmsErrorView from '../view/no-films-error-view.js';
 import LoadingView from '../view/loading-view.js';
 import SortListView from '../view/sort-list-view.js';
 import {FILM_COUNT_PER_STEP, SortType, TimeLimit, UpdateType, UserAction} from '../const.js';
@@ -55,9 +55,9 @@ export default class FilmsPresenter {
     const filteredFilms = filter[filterType](films);
     switch (this.#currentSortType) {
       case SortType.BY_DATE:
-        return filteredFilms.sort((a, b) =>sortByReleaseDate(a, b));
+        return filteredFilms.sort((a, b) =>sortByReleaseDate(b, a));
       case SortType.BY_RATING:
-        return filteredFilms.sort((a, b) => a.filmInfo.totalRating - b.filmInfo.totalRating);
+        return filteredFilms.sort((a, b) => b.filmInfo.totalRating - a.filmInfo.totalRating);
       case SortType.DEFAULT:
       default:
         return filteredFilms;
@@ -169,17 +169,19 @@ export default class FilmsPresenter {
       case UserAction.UPDATE_FILM:
         this.#popupPresenter?.setSaving();
         try {
+          if(this.#popupPresenter.isOpen === true) {
+            await this.#filmsModel.updateFilm(UpdateType.MINOR, update);
+          }
           await this.#filmsModel.updateFilm(updateType, update);
         } catch(err) {
           if(this.#popupPresenter.isOpen === true) {
             this.#popupPresenter.setAborting(UserAction.UPDATE_FILM);
-          } else {
-            if(this.#filmsPresenter.get(update.film.id)){
-              this.#filmsPresenter.get(update.film.id).setAborting();
-            }
-            if(this.#extraPresenter.get(update.film.id)){
-              this.#extraPresenter.get(update.film.id).setAborting();
-            }
+          }
+          if(this.#filmsPresenter.get(update.film.id)){
+            this.#filmsPresenter.get(update.film.id).setAborting();
+          }
+          if(this.#extraPresenter.get(update.film.id)){
+            this.#extraPresenter.get(update.film.id).setAborting();
           }
         }
         break;

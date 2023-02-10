@@ -20,7 +20,7 @@ const createCommentTemplate = (comments, isDeleting, isDisabled, deletingId) => 
         <span class="film-details__comment-author">${he.encode(comment.author)}</span>
         <span class="film-details__comment-day">${getCommentDate(comment.date)}</span>
         <button class="film-details__comment-delete" data-id="${comment.id}" ${isDisabled ? 'disabled' : ''}>
-        ${(isDeleting && (deletingId === comment.id)) ? 'Deleting...' : 'Delete'}
+        ${isDeleting && deletingId === comment.id ? 'Deleting...' : 'Delete'}
         </button>
       </p>
     </div>
@@ -251,7 +251,7 @@ export default class FilmPopupView extends AbstractStatefulView {
   }
 
   setDisabled() {
-    const element = this.element.querySelector(ClassName['UPDATE_FILM']);
+    const element = this.element.querySelector('.film-details__controls');
     element.querySelector('.film-details__control-button--watchlist').disabled = true;
     element.querySelector('.film-details__control-button--watched').disabled = true;
     element.querySelector('.film-details__control-button--favorite').disabled = true;
@@ -272,17 +272,17 @@ export default class FilmPopupView extends AbstractStatefulView {
     let element = null;
     switch (action) {
       case UserAction.UPDATE_FILM:
-        element = this.element.querySelector(ClassName['action']);
+        element = this.element.querySelector('.film-details__controls');
         element.querySelector('.film-details__control-button--watchlist').disabled = false;
         element.querySelector('.film-details__control-button--watched').disabled = false;
         element.querySelector('.film-details__control-button--favorite').disabled = false;
         break;
       case UserAction.ADD_COMMENT:
-        element = this.element.querySelector(ClassName['action']);
+        element = this.element.querySelector('.film-details__comment-input');
         element.disabled = false;
         break;
       case UserAction.DELETE_COMMENT:
-        element = this.element.querySelector(ClassName['action'](id));
+        element = this.element.querySelector(ClassName['DELETE_COMMENT'](id));
         element.querySelector('.film-details__comment-delete').textContent = 'Delete';
         element.querySelector('.film-details__comment-delete').disabled = false;
         break;
@@ -292,7 +292,7 @@ export default class FilmPopupView extends AbstractStatefulView {
   }
 
   getFormData() {
-    if(this._state.comment === null || this._state.emotion === null) {
+    if(this._state.comment === null || this._state.comment === '' || this._state.emotion === null ) {
       return null;
     }
     return {

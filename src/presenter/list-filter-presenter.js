@@ -1,4 +1,4 @@
-import ListFilterView from '../view/list-filter-view.js';
+import ListFilterView from '../view/list-filters-view.js';
 import {render, replace, remove} from '../framework/render.js';
 import {UpdateType, FilterType} from '../const.js';
 import {filter} from '../utils.js';
